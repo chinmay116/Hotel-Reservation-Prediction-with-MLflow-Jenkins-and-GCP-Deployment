@@ -23,8 +23,8 @@ RUN groupadd -f docker && \
 
 # Install Python
 RUN apt-get update && apt-get install -y python3 python3-pip python3-venv && \
-    ln -s /usr/bin/python3 /usr/bin/python && \
-    ln -s /usr/bin/pip3 /usr/bin/pip
+    [ -e /usr/bin/python ] || ln -s /usr/bin/python3 /usr/bin/python && \
+    [ -e /usr/bin/pip ] || ln -s /usr/bin/pip3 /usr/bin/pip
 
 # Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
