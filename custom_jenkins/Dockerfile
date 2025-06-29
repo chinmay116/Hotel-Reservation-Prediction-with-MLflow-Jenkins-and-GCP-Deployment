@@ -18,14 +18,14 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.c
     apt-get update -y && \
     apt-get install -y google-cloud-sdk
 
+# Add Jenkins user to Docker group
+RUN groupadd -f docker && \
+    usermod -aG docker jenkins
+
 # Install Python and pip
 RUN apt-get update && apt-get install -y python3 python3-pip python3-venv && \
     ln -s /usr/bin/python3 /usr/bin/python && \
     ln -s /usr/bin/pip3 /usr/bin/pip
-
-# Add Jenkins user to Docker group
-RUN groupadd -f docker && \
-    usermod -aG docker jenkins
 
 # Optional: Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
